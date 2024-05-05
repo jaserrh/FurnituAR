@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "732160365931",
+    "project_id": "arfr-2f7c6",
+    "storage_bucket": "arfr-2f7c6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:732160365931:android:c3795ceb734e18c8d7e82e",
+        "android_client_info": {
+          "package_name": "com.example.ar_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBrt-gaV10Jlyq8c5qw5vmXpuFHmZ99AsE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:732160365931:android:ed3d6b292a1e067cd7e82e",
+        "android_client_info": {
+          "package_name": "com.example.furniture_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBrt-gaV10Jlyq8c5qw5vmXpuFHmZ99AsE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
