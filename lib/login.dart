@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:furniture_app/home_screen.dart';
 import 'package:furniture_app/mybuttom.dart';
 import 'package:furniture_app/register.dart';
 
@@ -21,9 +22,26 @@ class _LoginState extends State<Login> {
 
   //signIn
   Future signIn() async {
-    await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: _emailController.text.trim(),
-        password: _passwordController.text.trim());
+    try {
+      final user = await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: _emailController.text.trim(),
+          password: _passwordController.text.trim());
+      if (user.user != null) {
+        Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => HomeScreen()));
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text("error sign in "),
+          backgroundColor: Colors.green,
+        ));
+      }
+    } catch (e) {
+      print(e);
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text("error occured"),
+        backgroundColor: Colors.red,
+      ));
+    }
   }
 
   @override
@@ -69,7 +87,8 @@ class _LoginState extends State<Login> {
                     fillColor: Colors.grey[50],
                     filled: true,
                     hintText: "Username",
-                    hintStyle: const TextStyle(color: Color.fromARGB(174, 0, 0, 0))),
+                    hintStyle:
+                        const TextStyle(color: Color.fromARGB(174, 0, 0, 0))),
               ),
             ),
             SizedBox(
@@ -88,7 +107,8 @@ class _LoginState extends State<Login> {
                     fillColor: Colors.grey[50],
                     filled: true,
                     hintText: "Password",
-                    hintStyle: const TextStyle(color: Color.fromARGB(174, 0, 0, 0))),
+                    hintStyle:
+                        const TextStyle(color: Color.fromARGB(174, 0, 0, 0))),
               ),
             ),
             const SizedBox(
@@ -97,7 +117,9 @@ class _LoginState extends State<Login> {
 
             //buttom
             Mybuttom(
-              onTap: signIn,
+              onTap: () async {
+                await signIn();
+              },
             ),
             const SizedBox(
               height: 10,
@@ -114,12 +136,12 @@ class _LoginState extends State<Login> {
               children: [
                 //google
                 Container(
-                  padding: const  EdgeInsets.all(5),
+                  padding: const EdgeInsets.all(5),
                   decoration: BoxDecoration(
                       border: Border.all(color: Colors.white),
                       borderRadius: BorderRadius.circular(16),
                       color: Colors.white),
-                  child:  Image.asset('images/R.png'),
+                  child: Image.asset('images/R.png'),
                   height: 50,
                 ),
                 const SizedBox(
@@ -155,7 +177,7 @@ class _LoginState extends State<Login> {
                       MaterialPageRoute(builder: (context) => Register()),
                     );
                   },
-                  child: const  Text(
+                  child: const Text(
                     'Register now',
                     style: TextStyle(
                         color: Colors.blueGrey, fontWeight: FontWeight.bold),

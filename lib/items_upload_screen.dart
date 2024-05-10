@@ -14,7 +14,7 @@ class ItemsUploadScreen extends StatefulWidget {
 
 class _ItemsUploadScreenState extends State<ItemsUploadScreen> {
   Uint8List? imageFileUint8List;
-
+  String? object3D;
   TextEditingController sellerNameTextEditingController =
       TextEditingController();
   TextEditingController sellerPhoneTextEditingController =
@@ -304,6 +304,7 @@ class _ItemsUploadScreenState extends State<ItemsUploadScreen> {
       "itemPrice": itemPriceTextEditingController.text,
       "publishedDate": DateTime.now(),
       "status": "available",
+      "object3d": object3D,
     });
 
     Fluttertoast.showToast(msg: "your new Item uploaded successfully.");
@@ -417,7 +418,7 @@ class _ItemsUploadScreenState extends State<ItemsUploadScreen> {
 
     try {
       final pickedImage =
-          await ImagePicker().pickImage(source: ImageSource.camera);
+          await ImagePicker().pickImage(source: ImageSource.camera); //camera
 
       if (pickedImage != null) {
         String imagePath = pickedImage.path;
@@ -425,10 +426,23 @@ class _ItemsUploadScreenState extends State<ItemsUploadScreen> {
 
         //remove background from image
         //make image transparent
-        imageFileUint8List =
-            await ApiConsumer().removeImageBackgroundApi(imagePath);
+        // imageFileUint8List =
+        //  await ApiConsumer().removeImageBackgroundApi(imagePath);
+        showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+                  content: Row(
+                    children: [
+                      CircularProgressIndicator(),
+                      Text("   loading...")
+                    ],
+                  ),
+                ));
+
+        object3D = await ApiConsumer().sendImageAndGet3DObject(imagePath);
 
         setState(() {
+          object3D;
           imageFileUint8List;
         });
       }
@@ -439,6 +453,7 @@ class _ItemsUploadScreenState extends State<ItemsUploadScreen> {
         imageFileUint8List = null;
       });
     }
+    Navigator.pop(context);
   }
 
   chooseImageFromPhoneGallery() async {
@@ -451,15 +466,29 @@ class _ItemsUploadScreenState extends State<ItemsUploadScreen> {
       if (pickedImage != null) {
         String imagePath = pickedImage.path;
         imageFileUint8List = await pickedImage.readAsBytes();
+        showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+                  content: Row(
+                    children: [
+                      CircularProgressIndicator(),
+                      Text("   loading...")
+                    ],
+                  ),
+                ));
 
         //remove background from image
         //make image transparent
         imageFileUint8List =
             await ApiConsumer().removeImageBackgroundApi(imagePath);
+        object3D = await ApiConsumer().sendImageAndGet3DObject(imagePath);
 
         setState(() {
+          object3D;
+
           imageFileUint8List;
         });
+        Navigator.pop(context);
       }
     } catch (errorMsg) {
       print(errorMsg.toString());
@@ -467,6 +496,7 @@ class _ItemsUploadScreenState extends State<ItemsUploadScreen> {
       setState(() {
         imageFileUint8List = null;
       });
+      Navigator.pop(context);
     }
   }
 

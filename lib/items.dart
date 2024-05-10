@@ -11,8 +11,10 @@ class Items {
   String? itemPrice;
   Timestamp? publishedDate;
   String? status;
+  String? object3D;
 
   Items({
+    this.object3D,
     this.sellerLocation,
     this.itemID,
     this.itemName,
@@ -27,6 +29,7 @@ class Items {
 
   Items.fromJson(Map<String, dynamic> json) {
     itemID = json["itemID"];
+    object3D = json["object3d"];
     sellerLocation = json["userLocation"];
     itemName = json["itemName"];
     itemDescription = json["itemDescription"];

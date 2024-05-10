@@ -28,7 +28,8 @@ class _RegisterState extends State<Register> {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: _emailController.text.trim(),
           password: _passwordController.text.trim());
-      Navigator.push(context, MaterialPageRoute(builder: (context) => const Auth()));
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => const Auth()));
     }
   }
 
@@ -84,7 +85,8 @@ class _RegisterState extends State<Register> {
                     fillColor: Colors.grey[50],
                     filled: true,
                     hintText: "Email",
-                    hintStyle: const TextStyle(color: Color.fromARGB(174, 0, 0, 0))),
+                    hintStyle:
+                        const TextStyle(color: Color.fromARGB(174, 0, 0, 0))),
               ),
             ),
             const SizedBox(
@@ -103,7 +105,8 @@ class _RegisterState extends State<Register> {
                     fillColor: Colors.grey[50],
                     filled: true,
                     hintText: "Password",
-                    hintStyle: const TextStyle(color: Color.fromARGB(174, 0, 0, 0))),
+                    hintStyle:
+                        const TextStyle(color: Color.fromARGB(174, 0, 0, 0))),
               ),
             ),
             const SizedBox(
@@ -120,7 +123,8 @@ class _RegisterState extends State<Register> {
                     fillColor: Colors.grey[50],
                     filled: true,
                     hintText: "Confirm Password",
-                    hintStyle: const TextStyle(color: Color.fromARGB(174, 0, 0, 0))),
+                    hintStyle:
+                        const TextStyle(color: Color.fromARGB(174, 0, 0, 0))),
               ),
             ),
             const SizedBox(
@@ -129,7 +133,9 @@ class _RegisterState extends State<Register> {
 
             //sign in buttom
             Mybuttom1(
-              onTap: signUp,
+              onTap: () async {
+                await signUp();
+              },
             ),
             const SizedBox(
               height: 10,
@@ -190,7 +196,8 @@ class _RegisterState extends State<Register> {
                   child: const Text(
                     'Register now',
                     style: TextStyle(
-                        color: Color.fromARGB(255, 86, 138, 250), fontWeight: FontWeight.bold),
+                        color: Color.fromARGB(255, 86, 138, 250),
+                        fontWeight: FontWeight.bold),
                   ),
                 )
               ],

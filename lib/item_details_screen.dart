@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:furniture_app/ar_view.dart';
 import 'package:furniture_app/buy_screen.dart';
 import 'package:furniture_app/items.dart';
 import 'package:furniture_app/login.dart';
@@ -37,10 +38,13 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (c) => VirtualARViewScreen(
+                        builder: (c) => Custom3dObjectsScreen(
+                            fileUri: widget.clickedItemInfo!
+                                .object3D!) /*VirtualARViewScreen(
                               clickedItemImageLink:
                                   widget.clickedItemInfo!.itemImage.toString(),
-                            )));
+                            ))*/
+                        ));
               }),
           SpeedDialChild(
               child: const Icon(Icons.shopping_cart),
